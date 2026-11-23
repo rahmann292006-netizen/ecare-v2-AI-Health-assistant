@@ -1,0 +1,147 @@
+/* ─────────────────────────────────────────────────────────────
+   Lumen design tokens
+   Two themes, one variable set. No neon, no violet, no glow.
+   Contrast: text on surface ≥ 12:1, muted on surface ≥ 5.2:1.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --font-sans: 'Inter', 'Inter var', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+
+  --step--2: 0.75rem;
+  --step--1: 0.8125rem;
+  --step-0: 0.9375rem;
+  --step-1: 1.0625rem;
+  --step-2: 1.25rem;
+  --step-3: 1.5rem;
+  --step-4: 1.875rem;
+  --step-5: 2.375rem;
+  --step-6: 3rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-sm: 6px;
+  --radius: 9px;
+  --radius-lg: 14px;
+  --radius-full: 999px;
+
+  --sidebar-w: 248px;
+  --content-max: 1180px;
+  --header-h: 60px;
+
+  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --dur: 140ms;
+
+  /* chart palette — muted, colour-blind safe, theme independent */
+  --chart-1: #B4561E;
+  --chart-2: #4A6B52;
+  --chart-3: #3E5A76;
+  --chart-4: #8A6B3F;
+  --chart-5: #6B5B76;
+}
+
+/* Theme A — Obsidian Light */
+[data-theme='light'] {
+  --bg: #FAF9F6;
+  --bg-subtle: #F4F2ED;
+  --surface: #FFFFFF;
+  --surface-2: #FBFAF7;
+  --surface-hover: #F7F5F0;
+  --border: #E6E3DB;
+  --border-strong: #D6D2C8;
+  --text: #1C1B19;
+  --text-secondary: #43413C;
+  --muted: #6B6862;
+  --faint: #8E8A82;
+  --accent: #B4561E;
+  --accent-hover: #9C4816;
+  --accent-soft: #F6EADF;
+  --accent-contrast: #FFFFFF;
+  --success: #2F6B45;
+  --success-soft: #E7F0E9;
+  --warning: #8A6116;
+  --warning-soft: #F7EEDA;
+  --danger: #A32F2A;
+  --danger-soft: #F8E8E6;
+  --focus: #B4561E;
+  --shadow-sm: 0 1px 2px rgba(28, 27, 25, 0.05);
+  --shadow: 0 1px 3px rgba(28, 27, 25, 0.06), 0 4px 12px rgba(28, 27, 25, 0.04);
+  --code-bg: #F7F5F0;
+  --scrim: rgba(28, 27, 25, 0.32);
+}
+
+/* Theme B — Midnight Dark */
+[data-theme='dark'] {
+  --bg: #0F1011;
+  --bg-subtle: #141517;
+  --surface: #191A1C;
+  --surface-2: #1E2022;
+  --surface-hover: #222426;
+  --border: #2A2B2E;
+  --border-strong: #3A3C40;
+  --text: #EDEBE7;
+  --text-secondary: #CFCCC6;
+  --muted: #9A968F;
+  --faint: #7C7871;
+  --accent: #E08A3C;
+  --accent-hover: #EFA055;
+  --accent-soft: #2A2119;
+  --accent-contrast: #16130F;
+  --success: #7FB58F;
+  --success-soft: #1B2620;
+  --warning: #D7A85A;
+  --warning-soft: #292117;
+  --danger: #E0857E;
+  --danger-soft: #2A1B1A;
+  --focus: #E08A3C;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.45), 0 4px 14px rgba(0, 0, 0, 0.3);
+  --code-bg: #141517;
+  --scrim: rgba(0, 0, 0, 0.55);
+}
+
+/* ── reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'cv11', 'ss01';
+}
+h1, h2, h3, h4, h5 { margin: 0; font-weight: 600; line-height: 1.25; letter-spacing: -0.011em; color: var(--text); }
+h1 { font-size: var(--step-4); letter-spacing: -0.02em; }
+h2 { font-size: var(--step-3); letter-spacing: -0.015em; }
+h3 { font-size: var(--step-2); }
+h4 { font-size: var(--step-1); }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+img, svg { display: block; max-width: 100%; }
+code, pre, kbd { font-family: var(--font-mono); font-size: 0.875em; }
+hr { border: 0; border-top: 1px solid var(--border); margin: var(--space-5) 0; }
+::selection { background: var(--accent-soft); color: var(--text); }
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+[data-reduced-motion] * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

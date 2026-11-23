@@ -1,0 +1,42 @@
+{
+  "name": "lumen-learn",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -n api,web -c gray,white \"node --watch server/index.js\" \"vite\"",
+    "dev:api": "node --watch server/index.js",
+    "dev:web": "vite",
+    "build": "vite build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "seed": "node server/content/seed.js",
+    "test": "node --test server/tests/*.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "private": "true",
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "better-sqlite3": "^13.2.0",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.3.0",
+    "lucide-react": "^1.73.0",
+    "monaco-editor": "^0.57.0",
+    "nodemailer": "^10.6.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.5",
+    "recharts": "^3.10.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "concurrently": "^10.0.7",
+    "playwright-core": "^1.65.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

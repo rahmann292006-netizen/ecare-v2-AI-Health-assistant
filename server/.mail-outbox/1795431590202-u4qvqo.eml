@@ -1,0 +1,9 @@
+To: events-1795431589280@example.com
+From: Lumen <no-reply@lumen.local>
+Subject: Verify your Lumen account
+
+Welcome to Lumen.
+
+Confirm your email to unlock the community: http://localhost:4180/verify-email?token=HZFmRJQpx53zJqyMnScJdM6KlyRondRgV45lAvdPeLI
+
+This link expires in 24 hours.

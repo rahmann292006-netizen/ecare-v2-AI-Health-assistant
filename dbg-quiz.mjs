@@ -1,0 +1,27 @@
+import { chromium } from 'playwright-core';
+const BASE='http://127.0.0.1:4180';
+const b=await chromium.launch();
+const p=await b.newPage({viewport:{width:1280,height:900}});
+p.on('console',m=>console.log('CONSOLE',m.type(),m.text().slice(0,200)));
+p.on('pageerror',e=>console.log('PAGEERROR',e.message));
+const email=`dbgq-${Date.now()}@example.com`;
+await p.goto(BASE+'/signup');
+await p.fill('#name','Dbg'); await p.fill('#email',email); await p.fill('#password','Correct-horse-battery9');
+await p.click('button[type=submit]'); await p.waitForURL(/dashboard|courses/);
+await p.goto(BASE+'/events/python-placement-quiz-1');
+await p.waitForSelector('text=Floor division',{timeout:15000});
+console.log('phase pills', (await p.locator('.pill').allInnerTexts()).slice(0,4));
+console.log('head actions', (await p.locator('.page-actions').allInnerTexts()).slice(0,2));
+const reg=p.locator('button:has-text("Register for this event")');
+console.log('register btn count', await reg.count());
+if(await reg.count()){ await reg.click(); await p.waitForTimeout(1500); }
+await p.reload(); await p.waitForSelector('text=Floor division',{timeout:15000}); await p.waitForTimeout(800);
+console.log('options', await p.locator('.option').count());
+await p.locator('.option').first().click();
+await p.waitForTimeout(200);
+console.log('selected', await p.locator('.option.is-selected').count());
+await p.locator('button:has-text("Submit answer")').click();
+await p.waitForTimeout(3000);
+console.log('body has Not quite:', (await p.content()).includes('Not quite'));
+console.log('body has notice:', (await p.locator('.notice').allInnerTexts()).slice(0,3));
+await b.close();

@@ -1,0 +1,41 @@
+import { chromium } from 'playwright-core';
+const BASE = 'http://localhost:4180';
+const OUT = process.env.TMP + '/shots';
+const email = `bell${Date.now()}@example.com`;
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+const page = await ctx.newPage();
+const errors = [];
+page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+await page.goto(BASE + '/signup');
+await page.fill('#name', 'Bell Tester');
+await page.fill('#email', email);
+await page.fill('#password', 'Correct-horse-battery9');
+await page.click('button[type=submit]');
+await page.waitForTimeout(2200);
+// start a journey so there is real work to remind about
+await page.goto(BASE + '/courses/python-programming/start');
+await page.waitForSelector('text=How much time each day?', { timeout: 15000 });
+await page.click('button[type=submit]');
+await page.waitForURL('**/plan', { timeout: 15000 });
+// trigger one scheduler tick, then look at the inbox
+const tick = await page.evaluate(async () => {
+  const t = document.cookie.split('; ').find((c) => c.startsWith('lumen_csrf='))?.split('=')[1] || '';
+  const r = await fetch('/api/notifications/run-now', { method: 'POST', headers: { 'x-csrf-token': t }, credentials: 'same-origin' });
+  return { status: r.status, body: await r.text() };
+});
+console.log('run-now:', tick.status, tick.body.slice(0, 160));
+await page.goto(BASE + '/notifications');
+await page.reload();
+await page.waitForSelector('text=Notifications and reminders', { timeout: 15000 });
+await page.waitForTimeout(700);
+await page.screenshot({ path: `${OUT}/57-notifications.png`, fullPage: true });
+await page.goto(BASE + '/dashboard');
+await page.waitForTimeout(1200);
+await page.screenshot({ path: `${OUT}/58-dashboard-bell.png`, clip: { x: 1000, y: 0, width: 440, height: 60 } });
+await page.setViewportSize({ width: 390, height: 844 });
+await page.goto(BASE + '/notifications');
+await page.waitForTimeout(900);
+await page.screenshot({ path: `${OUT}/59-notifications-mobile.png`, fullPage: true });
+console.log('errors:', errors.length ? errors : 'none');
+await browser.close();

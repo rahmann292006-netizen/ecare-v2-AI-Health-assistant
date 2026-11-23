@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Lumen — Learn technology properly</title>
+    <meta name="description" content="Lumen is a free technology learning platform: structured courses, a coding lab, an AI tutor grounded in your course material, aptitude practice and a learner community." />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // Apply the theme before first paint to avoid a flash. Account preference wins;
+      // otherwise follow the operating system.
+      (function () {
+        try {
+          var stored = localStorage.getItem('lumen.theme');
+          var theme = stored === 'light' || stored === 'dark' ? stored : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+          if (localStorage.getItem('lumen.reducedMotion') === '1') document.documentElement.setAttribute('data-reduced-motion', '');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
